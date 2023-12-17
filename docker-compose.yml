@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+    postgres:
+        image: postgres:12.14
+        ports:
+            - ${POSTGRES_EXT_PORT:-6432}:5432
+        restart: unless-stopped
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+        env_file:
+            - .env
+        environment:
+            POSTGRES_USER: src_football
+            POSTGRES_PASSWORD: src_football
+            POSTGRES_DB: src_football
+        healthcheck:
+            test:
+                [
+                    "CMD",
+                    "pg_isready",
+                    "--username",
+                    "src_football",
+                    "--dbname",
+                    "src_football"
+                ]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+
+volumes:
+  postgres_data:

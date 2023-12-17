@@ -1,0 +1,7 @@
+
+version: 2
+
+models:
+  - name: clean_src__matches
+  - name: clean_src__matches_players
+  - name: clean_src__matches_event_data

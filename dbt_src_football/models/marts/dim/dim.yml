@@ -1,0 +1,6 @@
+
+version: 2
+
+models:
+  - name: dim_src__matches_participation_data
+  - name: dim_src__matches_data_points

@@ -1,0 +1,13 @@
+
+version: 2
+
+sources:
+  - name: raw
+    schema: public
+    tables:
+      - name: matches_data
+      - name: matches_metadata
+
+models:
+  - name: stg_src__matches
+  - name: stg_src__matches_event_data
