@@ -51,7 +51,7 @@ def compute_five_most_intense_minutes(df):
     grouped_data = grouped_by_five_minutes_data \
         .withColumn("rn", F.row_number().over(windowSpec)) \
         .filter(F.col("rn") == 1)
-
+    grouped_data = grouped_data.drop("rn")
         # Show the resulting DataFrame
     grouped_data.show()
 
@@ -69,7 +69,7 @@ def compute_two_minutes_with_highest_spread(df):
     df = df\
     .groupby('match_id', 'date_time')\
     .agg(avg_distance_across_points('point_x', 'point_y').alias('avg_distance'))
-
+    df.cache()
     # Convert 'date_time' column to TimestampType
     df = df.withColumn('date_time', col('date_time').cast('timestamp'))
     # Group by match_id and window based on 2-minute intervals, calculate the max average distance
@@ -80,7 +80,6 @@ def compute_two_minutes_with_highest_spread(df):
         .groupBy('match_id')
         .agg(pyspark_max('avg(avg_distance)').alias('max_avg_distance'))
     )
-
 
 table_name = "public_marts.dim_src__matches_participation_data"
 df = read_table(table_name)
