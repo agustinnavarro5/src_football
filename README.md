@@ -1,6 +1,3 @@
-Absolutely! Here's the content in Markdown format:
-
-```markdown
 # Setting up PostgreSQL Docker Service
 
 To start the PostgreSQL service using Docker, run the following command:
