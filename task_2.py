@@ -55,23 +55,9 @@ def compute_five_most_intense_minutes(df):
         # Show the resulting DataFrame
     grouped_data.show()
 
-
-def calculate_distance(data_points):
-    total_distance = 0
-    count = 0
-    for pair in combinations(data_points, 2):
-        x1, y1 = float(pair[0]["x"]), float(pair[0]["y"])
-        x2, y2 = float(pair[1]["x"]), float(pair[1]["y"])
-        total_distance += math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
-        count += 1
-    return total_distance / count if count > 0 else 0
-
-
-
 @pandas_udf('double')
 def avg_distance_across_points(lat: pd.Series, lon: pd.Series) -> float:
     points = list(zip(lat, lon))
-    # if we have only one point for an agent
     if len(points) <= 1:
         d = 0
     else:
@@ -79,7 +65,6 @@ def avg_distance_across_points(lat: pd.Series, lon: pd.Series) -> float:
     return d
 
 def compute_two_minutes_with_highest_spread(df):
-
     # compute spread metric
     df = df\
     .groupby('match_id', 'date_time')\
